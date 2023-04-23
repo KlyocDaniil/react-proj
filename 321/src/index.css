@@ -12,9 +12,22 @@ code {
     monospace;
 }
 
+
 .wrapper {
-  padding-top:  5rem;
-  margin:  0 auto;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.menu {
   width: 600px;
-  border: 2px solid black;
+  height: 600px;
+  margin: 0;
+  border: 2px solid salmon;
+  text-align: center;
+}
+
+.btn {
+  width: 200px;
+  height: 200px;
 }
