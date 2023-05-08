@@ -6,45 +6,81 @@ function computeInitialCounter() {
     return num;
 }
 
+function compileCounter() {
+    let numberCount = 1;
+    return numberCount;
+}
+
 function App() {
-  const [counter, setCounter] = useState(() => {
-    return computeInitialCounter();
-  })
-
-  const [state, setState] = useState({
-    title: 'Счетчик',
-    date: Date.now()
-  })
-
-  function increment() {
-      setCounter(counter + 1)
-  }
-
-  function decrement() {
-      if (counter === 0) {
-        alert('Нельзя меньше 0')
-      } else {
-        setCounter(counter - 1)
-      }
-  }
-  function updateTitle() {
-        setState ( prev => {
-            return {
-                ...prev, 
-                title: 'Название'
-        }
+    const [counter, setState] = useState(() => {
+        return computeInitialCounter();
     })
-  }
-  return (
-    <div className='wrapper'>
-        <div className='menu'> 
-            <h1>Счетчик: {counter} </h1>
-            <button onClick = { increment } className='btn'>Добавить</button>
-            <button onClick = { decrement } className='btn'>Убрать</button>
-            <button onClick = {updateTitle} className='btn'>Изменить название</button>
 
-            <pre>{JSON.stringify(state, null, 2)}</pre>
+    const [numberAdd, setNumber] = useState(() => {
+        return compileCounter();
+    })
+
+    const [money, setMoney] = useState(() => {
+        let money = 0;
+        return money;
+    })
+
+    function convertClickMoney () {
+        if (counter >= 50) {
+            setState(counter - 50);
+            setMoney(money + counter);
+        } else {
+            alert('Набей 50 кликов')
+        } 
+    }
+
+    function buyBuffIncrement() {
+        if (money >= 20) {
+            setNumber(numberAdd + 1)
+            setMoney(money - 20);
+        } else {
+            alert('Мало деняг')
+        }
+    }
+
+    function increment() {
+        setState(counter + numberAdd)
+    }
+
+    function reset() {
+        setNumber(compileCounter()); // 1
+        setState(counter * 0); 
+    }
+
+  
+  return (
+
+    <div className='wrapper'>
+        <div className = 'shop'>
+                <h1> Текущее улучшение: { numberAdd } </h1>
+                <h3> Монеты: { money } </h3>
+                <h3> Обменять 50 кликов на монеты </h3>
+                <button onClick= { convertClickMoney } className='btn_shop'> 50 монет </button>
+                <h3> Купить +1 клик </h3>
+                <button onClick= { buyBuffIncrement } className='btn_shop'> Купить улучшение </button>
         </div>
+
+        <div className='menu'> 
+            <h1> Счетчик: {counter} </h1>
+            <button onClick = { increment } className='btn'> Добавить </button>
+            <button onClick= { reset } className='btn'> Сброс </button>
+        </div>
+
+        {/* <div className='shop_right'>
+        <h1> Текущее улучшение: { numberAdd } </h1>
+                <h3> Монеты: { money } </h3>
+                <h3> Обменять 50 кликов на монеты </h3>
+                <button onClick= { convertClickMoney } className='btn_shop'> 50 монет </button>
+                <h3> Купить +1 клик </h3>
+                <button onClick= { buyBuffIncrement } className='btn_shop'> Купить улучшение </button>
+        </div> */}
+
+    
     </div>
   );
 }
